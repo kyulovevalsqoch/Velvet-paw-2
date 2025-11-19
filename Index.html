@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet Paw - Komunitas Pencinta Kucing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-paw me-2"></i>
+                <span>Velvet Paw</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-target="home">
+                            <i class="fas fa-home me-1"></i> <span>Beranda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="forum">
+                            <i class="fas fa-comments me-1"></i> <span>Forum</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="event">
+                            <i class="fas fa-calendar-alt me-1"></i> <span>Event</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="donation">
+                            <i class="fas fa-hand-holding-heart me-1"></i> <span>Donasi</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="ms-lg-3 ms-md-2 ms-1" id="userSection">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login ke Velvet Paw</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginUsername" class="form-label">Username atau Email</label>
+                            <input type="text" class="form-control" id="loginUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Ingat saya
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-mobile">Login</button>
+                    </form>
+                    <div class="create-account-link">
+                        <p>Belum punya akun? <a href="#" id="showRegisterForm">Buat akun di sini</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Register -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Buat Akun Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="registerName" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="registerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="registerUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPhone" class="form-label">Nomor Telepon</label>
+                            <input type="tel" class="form-control" id="registerPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerBio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="registerBio" rows="3" placeholder="Ceritakan sedikit tentang Anda dan kucing kesayangan Anda"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerConfirmPassword" class="form-label">Konfirmasi Password</label>
+                            <input type="password" class="form-control" id="registerConfirmPassword" required>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">
+                                Saya setuju dengan <a href="#">syarat dan ketentuan</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-mobile">Daftar</button>
+                    </form>
+                    <div class="create-account-link">
+                        <p>Sudah punya akun? <a href="#" id="showLoginForm">Login di sini</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Donasi -->
+    <div class="modal fade" id="donationModal" tabindex="-1" aria-labelledby="donationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="donationModalLabel">Konfirmasi Donasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin mendonasikan <strong id="donationAmountText">Rp 0</strong>?</p>
+                    <p>Donasi Anda akan digunakan untuk:</p>
+                    <ul>
+                        <li>Pemeliharaan website</li>
+                        <li>Event komunitas</li>
+                        <li>Program kesehatan kucing</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-mobile" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary btn-mobile" id="confirmDonation">Ya, Donasi Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reset Password -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="resetPasswordForm">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Password Saat Ini</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Password Baru</label>
+                            <input type="password" class="form-control" id="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmNewPassword" class="form-label">Konfirmasi Password Baru</label>
+                            <input type="password" class="form-control" id="confirmNewPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-mobile">Reset Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Change Email -->
+    <div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeEmailModalLabel">Ubah Email</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changeEmailForm">
+                        <div class="mb-3">
+                            <label for="currentEmail" class="form-label">Email Saat Ini</label>
+                            <input type="email" class="form-control" id="currentEmail" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newEmail" class="form-label">Email Baru</label>
+                            <input type="email" class="form-control" id="newEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPasswordEmail" class="form-label">Konfirmasi Password</label>
+                            <input type="password" class="form-control" id="confirmPasswordEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-mobile">Ubah Email</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login Required -->
+    <div class="modal fade login-required-modal" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginRequiredModalLabel">Login Diperlukan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-circle fa-3x text-warning mb-3"></i>
+                    <p>Anda harus login untuk mengikuti event ini</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary btn-mobile me-2" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary btn-mobile" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="home" class="section active">
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Komunitas Pencinta Kucing Terbesar di Indonesia</h1>
+                    <p class="hero-subtitle">Bergabunglah dengan ribuan pecinta kucing lainnya untuk berbagi pengalaman, tips perawatan, dan ikuti event seru seputar kucing.</p>
+                    <div class="hero-buttons text-center text-lg-start">
+                        <button class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">Bergabung Sekarang</button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-cat-illustration">
+                        <div class="cat-image-container">
+                            <img src="img/256px-Cat_silhouette_brown.svg.png" alt="Kucing Lucu" class="cat-hero-image">
+                                <div class="cat-shadow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-section">
+            <div class="row text-center">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Anggota</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">5K+</div>
+                        <div class="stat-label">Postingan</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Event</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Kota</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center features-section">
+            <div class="col-12">
+                <h2 class="section-title">Mengapa Bergabung dengan Velvet Paw?</h2>
+                <p class="section-subtitle">Temukan semua yang Anda butuhkan sebagai pencinta kucing dalam satu komunitas yang hangat dan supportive</p>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Forum Diskusi</h3>
+                            <p>Berbagi pengalaman dan tanya jawab tentang kucing dengan komunitas pencinta kucing lainnya.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3>Event Komunitas</h3>
+                            <p>Ikuti atau buat event kucing di daerah Anda dan bertemu dengan sesama pencinta kucing.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <h3>Program Donasi</h3>
+                            <p>Dukung program kesehatan dan kesejahteraan kucing melalui donasi Anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center testimonials-section">
+            <div class="col-12">
+                <h2 class="section-title">Apa Kata Mereka?</h2>
+                <p class="section-subtitle">Dengarkan pengalaman langsung dari anggota komunitas Velvet Paw</p>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                "Sejak bergabung dengan Velvet Paw, saya mendapatkan banyak tips merawat kucing yang sangat membantu. Komunitasnya sangat ramah dan supportive!"
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="img/pexels-danxavier-1239291.jpg" alt="User" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>Sarah Wijaya</h4>
+                                    <p>Anggota sejak 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                "Event kucing yang diadakan Velvet Paw selalu seru! Saya sudah menemukan banyak teman sesama pecinta kucing di sini."
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="img/pexels-justin-shaifer-501272-1222271.jpg" alt="User" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>Budi Santoso</h4>
+                                    <p>Anggota sejak 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                "Donasi yang saya berikan melalui Velvet Paw benar-benar membantu kucing-kucing jalanan. Senang bisa berkontribusi melalui platform ini."
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="img/pexels-olly-789822.jpg" alt="User" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>Diana Putri</h4>
+                                    <p>Anggota sejak 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Section Forum -->
+<section id="forum" class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="section-title mb-4"><i class="fas fa-comments me-2"></i>Forum Diskusi</h1>
+                        <p class="section-subtitle">Bergabung dalam diskusi dengan komunitas pencinta kucing lainnya</p>
+                        
+                        <div id="postFormContainer">
+                            <!-- Form posting akan dimuat di sini oleh JavaScript -->
+                        </div>
+                        
+                        <hr>
+                        
+                        <div id="postsContainer">
+                            <div class="forum-post" data-post-id="1">
+                                <div class="post-header">
+                                    <div class="user-avatar">
+                                        <img src="img/pexels-jibarofoto-2833037.jpg" alt="iburatna357" class="avatar-img">
+                                    </div>
+                                    <div class="post-user-info">
+                                        <p class="forum-username">iburatna357</p>
+                                        <p class="post-time">2 jam yang lalu</p>
+                                    </div>
+                                </div>
+                                <p class="post-content">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                
+                                <div class="comment-section">
+                                    <h6 class="mb-3">Komentar (2)</h6>
+                                    
+                                    <div class="comment">
+                                        <div class="comment-header">
+                                            <div class="user-avatar">
+                                                <img src="img/pexels-javon-swaby-197616-1697912.jpg" alt="sangpencintakucing" class="avatar-img">
+                                            </div>
+                                            <div class="comment-user-info">
+                                                <p class="comment-username">sangpencintakucing</p>
+                                                <p class="comment-time">1 jam yang lalu</p>
+                                            </div>
+                                        </div>
+                                        <p class="comment-text">Setuju banget! Saya juga punya pengalaman serupa dengan kucing saya.</p>
+                                    </div>
+                                    
+                                    <div class="comment">
+                                        <div class="comment-header">
+                                            <div class="user-avatar">
+                                                <img src="img/pexels-donaldtong94-193821.jpg" alt="catlover123" class="avatar-img">
+                                            </div>
+                                            <div class="comment-user-info">
+                                                <p class="comment-username">catlover123</p>
+                                                <p class="comment-time">30 menit yang lalu</p>
+                                            </div>
+                                        </div>
+                                        <p class="comment-text">Terima kasih untuk sharingnya, sangat membantu!</p>
+                                    </div>
+                                    
+                                    <div class="comment-form-container">
+                                        <!-- Form komentar akan dimuat di sini -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="forum-post" data-post-id="2">
+                                <div class="post-header">
+                                    <div class="user-avatar">
+                                        <img src="img/pexels-danxavier-1239291.jpg" alt="istribudiman727" class="avatar-img">
+                                    </div>
+                                    <div class="post-user-info">
+                                        <p class="forum-username">istribudiman727</p>
+                                        <p class="post-time">5 jam yang lalu</p>
+                                    </div>
+                                </div>
+                                <p class="post-content">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                
+                                <div class="comment-section">
+                                    <h6 class="mb-3">Komentar (1)</h6>
+                                    
+                                    <div class="comment">
+                                        <div class="comment-header">
+                                            <div class="user-avatar">
+                                                <img src="img/pexels-alexandro-david-871783-1835016.jpg" alt="kucingmania" class="avatar-img">
+                                            </div>
+                                            <div class="comment-user-info">
+                                                <p class="comment-username">kucingmania</p>
+                                                <p class="comment-time">3 jam yang lalu</p>
+                                            </div>
+                                        </div>
+                                        <p class="comment-text">Info yang sangat bermanfaat, terima kasih!</p>
+                                    </div>
+                                    
+                                    <div class="comment-form-container">
+                                        <!-- Form komentar akan dimuat di sini -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Event -->
+<section id="event" class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="section-title mb-4"><i class="fas fa-calendar-alt me-2"></i>Event Kucing</h1>
+                        <p class="section-subtitle">Temukan dan ikuti event kucing di sekitar Anda</p>
+                        
+                        <div id="createEventContainer">
+                            <!-- Form buat event akan dimuat di sini -->
+                        </div>
+                        
+                        <hr>
+                        
+                        <div id="eventsContainer">
+                            <div class="card event-card" data-event-id="1">
+                                <div class="card-body">
+                                    <p class="event-date">30 Februari 2097</p>
+                                    <h2 class="h4 mb-3">Seminar bagaimana anda bisa mengenal kucing anda lebih dekat lagi oleh dokter budiman</h2>
+                                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-column flex-md-row">
+                                        <div class="mb-3 mb-md-0">
+                                            <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>JL.manusia no 87</p>
+                                        </div>
+                                        <button class="btn btn-interest btn-mobile interest-btn">
+                                            <i class="fas fa-heart me-2"></i>Tertarik
+                                        </button>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p><strong>120 orang</strong> tertarik dengan event ini</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Donation -->
+<section id="donation" class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="section-title mb-4"><i class="fas fa-hand-holding-heart me-2"></i>Donasi</h1>
+                        <p class="section-subtitle">Bantu kami menjaga komunitas ini tetap aktif dan mendukung program kesejahteraan kucing</p>
+                        
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="donationType" id="oneTime" checked>
+                                <label class="form-check-label" for="oneTime">Sekali</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="donationType" id="monthly">
+                                <label class="form-check-label" for="monthly">Bulanan</label>
+                            </div>
+                        </div>
+                        
+                        <div class="donation-amounts mb-4">
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-outline-secondary w-100 donation-option btn-mobile" data-amount="50000">Rp. 50.000,00</button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-outline-secondary w-100 donation-option btn-mobile" data-amount="100000">Rp. 100.000,00</button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-outline-secondary w-100 donation-option btn-mobile" data-amount="150000">Rp. 150.000,00</button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" id="customAmount" placeholder="masukan jumlah...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn donation-btn w-100 btn-mobile" id="donateButton">
+                            <i class="fas fa-gift me-2"></i>Donasi Sekarang
+                        </button>
+                        
+                        <p class="mb-4 mt-4">Donasi anda sangat berarti untuk website kami</p>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Profile -->
+<section id="profile" class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="profile-image-upload">
+                            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img" id="profilePicture">
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera fa-2x"></i>
+                            </div>
+                            <input type="file" class="file-input" id="profileImageInput" accept="image/*">
+                        </div>
+                        <p class="file-info">Klik gambar untuk mengubah foto profil. Maksimal 2 MB.</p>
+                        <div id="profileImageAlert" class="alert alert-danger d-none" role="alert"></div>
+                        
+                        <h1 class="section-title mb-3"><i class="fas fa-user me-2"></i>Profil Saya</h1>
+                        
+                        <form id="profileForm">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="profileUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="profileUsername" required readonly>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="profileEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="profileEmail" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="profilePhone" class="form-label">Nomor Telepon</label>
+                                <input type="tel" class="form-control" id="profilePhone">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="profileBio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="profileBio" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="joinDate" class="form-label">Bergabung Sejak</label>
+                                <input type="text" class="form-control" id="joinDate" readonly>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-mobile">
+                                <i class="fas fa-save me-1"></i> Simpan Perubahan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="h4 mb-3">Statistik Saya</h2>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h3 id="postCount">0</h3>
+                                <p><i class="fas fa-comment me-1"></i> Postingan</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 id="eventCount">0</h3>
+                                <p><i class="fas fa-calendar-check me-1"></i> Event</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 id="catCount">0</h3>
+                                <p><i class="fas fa-cat me-1"></i> Kucing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="h4 mb-3"><i class="fas fa-shield-alt me-2"></i>Keamanan</h2>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-outline-primary me-2 mb-2 btn-mobile" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+                                <i class="fas fa-key me-1"></i> Reset Password
+                            </button>
+                            <button class="btn btn-outline-primary mb-2 btn-mobile" data-bs-toggle="modal" data-bs-target="#changeEmailModal">
+                                <i class="fas fa-envelope me-1"></i> Change Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body text-center">
+                        <button class="btn btn-outline-danger btn-mobile" id="logoutButton">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Settings -->
+<section id="settings" class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="section-title mb-4"><i class="fas fa-cog me-2"></i>Pengaturan</h1>
+                        
+                        <div class="settings-option">
+                            <h3 class="h5"><i class="fas fa-bell me-2"></i>Notifikasi</h3>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="notifPost" checked>
+                                <label class="form-check-label" for="notifPost">Notifikasi untuk postingan baru</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="notifEvent" checked>
+                                <label class="form-check-label" for="notifEvent">Notifikasi untuk event baru</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="notifMessage">
+                                <label class="form-check-label" for="notifMessage">Notifikasi untuk pesan pribadi</label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-option">
+                            <h3 class="h5"><i class="fas fa-lock me-2"></i>Privasi</h3>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="privacy" id="privacyPublic" checked>
+                                <label class="form-check-label" for="privacyPublic">Profil publik</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="privacy" id="privacyPrivate">
+                                <label class="form-check-label" for="privacyPrivate">Profil pribadi</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="showEmail">
+                                <label class="form-check-label" for="showEmail">Tampilkan email di profil</label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-option">
+                            <h3 class="h5"><i class="fas fa-palette me-2"></i>Tampilan</h3>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="themeLight" checked>
+                                <label class="form-check-label" for="themeLight">Tema Terang</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="themeDark">
+                                <label class="form-check-label" for="themeDark">Tema Gelap</label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary btn-mobile">
+                                <i class="fas fa-save me-1"></i> Simpan Pengaturan
+                            </button>
+                            <button class="btn btn-outline-secondary btn-mobile">
+                                <i class="fas fa-undo me-1"></i> Reset ke Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <!-- Konten Footer -->
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/forum.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/donation.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
